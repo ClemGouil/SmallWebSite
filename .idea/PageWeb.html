@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Title</title>
+
+    <script>
+    var i = 1;
+    var j = 2;
+    var z = 3;
+    function appendText() {
+    var txt1 = document.getElementById("username").value;
+    $.ajax({
+    url: "https://api.github.com/users/" + txt1,
+    dataType: "text",
+    success: function(data) {
+        var json = $.parseJSON(data);
+        $("#col" + i).append(json.name);
+        $("#col" + j).append(json.bio);
+        $("#col" + z).append(json.followers);
+        i +=3;
+        j +=3;
+        z +=3;
+        $("#table>tbody").append("<tr><td id='col" + i + "'>" + "</td><td id='col" + j + "'>" + "</td><td id='col" + z + "'>" + "</td></tr>");
+    }
+});
+    }
+
+    </script>
+</head>
+
+<body>
+
+<label for="username">Username:</label><br>
+<input type="text" id="username" name="username"><br>
+<button onclick="appendText()" id="btn1"> Click</button>
+
+<table class="table" id="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Number of followers</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td id='col1'></td>
+        <td id='col2'></td>
+        <td id='col3'></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
